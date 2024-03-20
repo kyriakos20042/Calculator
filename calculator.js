@@ -1,36 +1,115 @@
 let first_number = "";
-let number2 = "";
-let operation;
+let second_number = "";
+let operation = "";
+let display_value = "";
+let result = "";
 
 const button_equals = document.querySelector("#equals");
 button_equals.addEventListener("click", () => {
-    let result = operate(1,1,"add");
-    document.getElementById("result").value = result;
+    getResults();
+    operation = "";
+    second_number = "";
+    first_number = result;
 });
 
 const button_numbers = document.querySelectorAll(".numbers");
 button_numbers.forEach((button_number) => {
     button_number.addEventListener("click", () => {
-        if(number1 != "") {
-            number1 += button_number.id;
-            document.getElementById("result").value = number1;
+        display(button_number.id);
+    });
+});
+
+const button_operators = document.querySelectorAll(".operators");
+button_operators.forEach((button_operator) => {
+    button_operator.addEventListener("click", () => {
+        if(first_number != "") {
+            operation = convertOperation(button_operator.id);
+            display_value = document.getElementById("result").value = first_number + operation;
+        }
+        if(second_number != "") {
+            operate(first_number,second_number,operation);
+            operation = convertOperation(button_operator.id);
+            first_number = result;
+            second_number = "";
+            document.getElementById("result").value = first_number + operatation;
         }
     });
 });
 
-function operate(number1, number2, operation ) {
+const button_clear = document.querySelector(".clear");
+button_clear.addEventListener("click", () => {
+    clear();
+});
+
+function getResults() {
+    result = operate(first_number,second_number,operation);
+    display_value = document.getElementById("result").value = display_value + '\r\n' + result;
+}
+//TextArea display
+function display(buttonID) {
+    if(operation == "") {
+        //After Result, If user wants a new calculation 
+        if(first_number == result && first_number != "") {
+            clear();
+        }
+        //The starting number can not be 0. example: 01
+        if(first_number == "" && buttonID == 0) {
+            buttonID = "";
+        }
+        first_number += buttonID;
+        display_value = document.getElementById("result").value = first_number;
+    }
+    else {
+        if(second_number == "" && buttonID == 0) {
+            button_number.id = "";
+        }
+        second_number += buttonID;
+        display_value = document.getElementById("result").value = first_number + operation + second_number;
+    }
+    return;
+}
+
+//Clear Display
+function clear() {
+    first_number = "";
+    second_number = "";
+    operation = "";
+    display_value = "";
+    document.getElementById("result").value = "";
+}
+
+//Convert id's to operators
+function convertOperation(operation) {
     switch(operation) {
         case "add":
-            return number1+number2;
+            return "+";
         case "subtract":
-            return number1-number2;
+            return "-";
         case "multiply":
-            return number1*number2;
+            return "*";
         case "divide":
+            return "/";
+    }
+}
+
+
+//Return the result
+function operate(number1, number2, operation ) {
+    switch(operation) {
+        case "+":
+            return Number(number1) + Number(number2);
+        case "-":
+            return Number(number1) - Number(number2);
+        case "*":
+            return Number(number1) * Number(number2);
+        case "/":
             if(number2 != 0) {
-                return number1/number2;
+                return Number(number1) / Number(number2);
+            }
+            else {
+                return "";
             }
         default:
-            alert("No right operation");
+            return "";
     }
 }
