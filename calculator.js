@@ -1,9 +1,11 @@
+//Variables
 let first_number = "";
 let second_number = "";
 let operation = "";
 let display_value = "";
 let result = "";
 
+//Equal Button
 const button_equals = document.querySelector("#equals");
 button_equals.addEventListener("click", () => {
     result = calculate(first_number,second_number,operation);
@@ -13,6 +15,7 @@ button_equals.addEventListener("click", () => {
     first_number = result;
 });
 
+//Button Numbers
 const button_numbers = document.querySelectorAll(".numbers");
 button_numbers.forEach((button_number) => {
     button_number.addEventListener("click", () => {
@@ -20,6 +23,7 @@ button_numbers.forEach((button_number) => {
     });
 });
 
+//Operators
 const button_operators = document.querySelectorAll(".operators");
 button_operators.forEach((button_operator) => {
     button_operator.addEventListener("click", () => {
@@ -27,11 +31,13 @@ button_operators.forEach((button_operator) => {
     });
 });
 
+//Clear Button
 const button_clear = document.querySelector(".clear");
 button_clear.addEventListener("click", () => {
     clear();
 });
 
+//Operations
 function operations(buttonID) {
     if(first_number != "" && second_number == "") {
         operation = convertOperation(button_operator.id);
