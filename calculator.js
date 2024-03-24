@@ -40,12 +40,12 @@ button_clear.addEventListener("click", () => {
 //Operations
 function operations(buttonID) {
     if(first_number != "" && second_number == "") {
-        operation = convertOperation(button_operator.id);
+        operation = convertOperation(buttonID);
         display_value = document.getElementById("result").value = first_number + operation;
     }
     if(second_number != "") {
         result = calculate(first_number,second_number,operation)
-        operation = convertOperation(button_operator.id);
+        operation = convertOperation(buttonID);
         first_number = result;
         second_number = "";
         display_value = "";
